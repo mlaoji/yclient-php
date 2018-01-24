@@ -1,0 +1,8 @@
+{
+  "name": "mlaoji/yclient-php",
+  "description": "Ygo grpc client for PHP",
+  "require": {
+    "grpc/grpc": "^v1.3.0",
+    "google/protobuf": "^v3.3.0"
+  }
+}
