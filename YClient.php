@@ -9,20 +9,29 @@ include_once dirname(__FILE__).'/lib/GPBMetadata/Service.php';
 Class YClient
 {
     private $host;
+    private $appid;
+    private $secret;
+
     const ERROR_INVALID_RES = "response empty!";
     
-    public function __construct($host) {/*{{{*/
-        $this->host = $host;
+    public function __construct($host, $appid = null, $secret = null) {/*{{{*/
+        $this->host   = $host;
+        $this->appid  = $appid;
+        $this->secret = $secret;
     }/*}}}*/
 
-    public static function getInstance($host) {/*{{{*/
-        return new self($host);
+    public static function getInstance($host, $appid = null, $secret = null) {/*{{{*/
+        return new self($host, $appid, $secret);
     }/*}}}*/
 
     public function request($method, $params = array()) {/*{{{*/
         $client = new Ygoservice\YGOClient($this->host, [
             'credentials' => Grpc\ChannelCredentials::createInsecure(),
                 ]);
+
+        $params["appid"]  = $this->appid;
+        $params["secret"] = $this->secret;
+        $params["guid"] = $this->_getGuid();
 
         $request = new Ygoservice\Request();
         $request->setMethod($method);
@@ -49,8 +58,11 @@ Class YClient
 
         return null;
     }/*}}}*/
-}
 
+    public function _getGuid() {/*{{{*/
+        return md5(microtime() . rand(1, 100000000));
+    }/*}}}*/
+}
 
 Class YClientException extends RuntimeException
 {
