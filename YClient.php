@@ -11,13 +11,19 @@ Class YClient
     private $host;
     private $appid;
     private $secret;
+    private $client;
 
     const ERROR_INVALID_RES = "response empty!";
+    const ERROR_INVALID_RQT = "request error!";
     
     public function __construct($host, $appid = null, $secret = null) {/*{{{*/
         $this->host   = $host;
         $this->appid  = $appid;
         $this->secret = $secret;
+        
+        $this->client = new Ygoservice\YGOClient($this->host, [
+            'credentials' => Grpc\ChannelCredentials::createInsecure(),
+                ]);
     }/*}}}*/
 
     public static function getInstance($host, $appid = null, $secret = null) {/*{{{*/
@@ -25,10 +31,6 @@ Class YClient
     }/*}}}*/
 
     public function request($method, $params = array()) {/*{{{*/
-        $client = new Ygoservice\YGOClient($this->host, [
-            'credentials' => Grpc\ChannelCredentials::createInsecure(),
-                ]);
-
         $params["appid"]  = $this->appid;
         $params["secret"] = $this->secret;
         $params["guid"] = $this->_getGuid();
@@ -37,7 +39,11 @@ Class YClient
         $request->setMethod($method);
         $request->setParams($params);
 
-        list($reply, $status) = $client->Call($request)->wait();
+        list($reply, $status) = $this->client->Call($request)->wait();
+        if("NULL" == (gettype($reply))) {
+            throw new YClientException(self::ERROR_INVALID_RQT);
+        }
+
         return $this->_parseResponse($reply->getResponse());
     }/*}}}*/
 
