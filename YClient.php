@@ -5,6 +5,13 @@ include_once dirname(__FILE__).'/lib/Ygoservice/YClient.php';
 include_once dirname(__FILE__).'/lib/Ygoservice/Reply.php';
 include_once dirname(__FILE__).'/lib/Ygoservice/Request.php';
 include_once dirname(__FILE__).'/lib/GPBMetadata/Service.php';
+include_once dirname(__FILE__).'/lib/YLogger.php';
+
+$GLOBALS['YC_LOG'] = array(
+    'level'    => YLogger::LOG_LEVEL_WARN, //日志级别为警告级别，同时业务日志（调试级别）将关闭
+    'split'    => YLogger::LOG_SPLIT_DAY,
+    'logfile' => dirname(__FILE__) . '/logs/yclient.log',
+);
 
 Class YClient
 {
@@ -30,6 +37,10 @@ Class YClient
         return new self($host, $appid, $secret);
     }/*}}}*/
 
+    public static function setLogFile($logfile) {/*{{{*/
+        $GLOBALS["YC_LOG"]["logfile"] = $logfile;
+    }/*}}}*/
+
     public function request($method, $params = array()) {/*{{{*/
         $params["appid"]  = $this->appid;
         $params["secret"] = $this->secret;
@@ -39,24 +50,31 @@ Class YClient
         $request->setMethod($method);
         $request->setParams($params);
 
+        $params["method"] = $method;
+
         list($reply, $status) = $this->client->Call($request)->wait();
         if("NULL" == (gettype($reply))) {
+            YLogger::warn("request error", 0, $params);
             throw new YClientException(self::ERROR_INVALID_RQT);
         }
 
-        return $this->_parseResponse($reply->getResponse());
+        return $this->_parseResponse($params, $reply->getResponse());
     }/*}}}*/
 
-    public function _parseResponse($response) {/*{{{*/
+    public function _parseResponse($params, $response) {/*{{{*/
         $res = json_decode($response, true);
 
         if(!isset($res["code"])) {
+            YLogger::warn($response, 0, $params);
             throw new YClientException(self::ERROR_INVALID_RES);
         }
 
         if($res["code"] > 0) {
+            YLogger::warn($response, $res["code"], $params);
             throw new YClientException($res["msg"], $res["code"]);
         }
+
+        YLogger::access($response, $res["code"], $params);
 
         if(isset($res["data"])) {
             return $res["data"];

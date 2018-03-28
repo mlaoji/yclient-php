@@ -1,8 +1,9 @@
 <?php
 require dirname(__FILE__).'/YClient.php';
-$c = YClient::getInstance("172.16.1.170:6001", "account","3sdF9k4HShLh");
+$c = YClient::getInstance("passport.inner.chaoqun.mobi:9202", "site","3sdF9k4HShLh");
+//$c->setLogFile("logs/access.log");
 try {
-    $s = $c->request("counter/setCounter", array("name"=>"following", "rid"=> 14, "num"=>2));
+    $s = $c->request("passport/getUserInfo", array("uid"=> 2));
     var_dump($s);
 } catch(YClientException $e) {
     echo "error: [". $e->getCode() . "] ". $e->getMessage();
