@@ -7,7 +7,7 @@ include_once dirname(__FILE__).'/lib/Ygoservice/Request.php';
 include_once dirname(__FILE__).'/lib/GPBMetadata/Service.php';
 include_once dirname(__FILE__).'/lib/YLogger.php';
 
-$GLOBALS['YC_LOG'] = array(
+!isset($GLOBALS['YC_LOG']) && $GLOBALS['YC_LOG'] = array(
     'level'    => YLogger::LOG_LEVEL_WARN, //日志级别为警告级别，同时业务日志（调试级别）将关闭
     'split'    => YLogger::LOG_SPLIT_DAY,
     'logfile' => dirname(__FILE__) . '/logs/yclient.log',
