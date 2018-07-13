@@ -42,6 +42,12 @@ Class YClient
     }/*}}}*/
 
     public function request($method, $params = array()) {/*{{{*/
+        foreach($params as $k => $v) {
+            if(is_null($v)) {//null 值时, 可能会出现: PHP message: PHP Fatal error:  Given value cannot be converted to string 
+                $params[$k] = "";
+            }
+        }
+
         $params["appid"]  = $this->appid;
         $params["secret"] = $this->secret;
         $params["guid"] = $this->_getGuid();
