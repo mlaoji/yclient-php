@@ -1,0 +1,185 @@
+yclient-php=$PWD {
+ README.md
+ YClient.php
+ composer.json
+ composer.lock
+ example.php
+ lib=lib {
+  YLogger.php
+  GPBMetadata=GPBMetadata {
+   Service.php
+  }
+  Ygoservice=Ygoservice {
+   Reply.php
+   Request.php
+   YClient.php
+  }
+ }
+ vendor=vendor {
+  autoload.php
+  composer=composer {
+   ClassLoader.php
+   LICENSE
+   autoload_classmap.php
+   autoload_namespaces.php
+   autoload_psr4.php
+   autoload_real.php
+   autoload_static.php
+   installed.json
+  }
+  google=google {
+   protobuf=protobuf {
+    php=php {
+     README.md
+     composer.json
+     generate_descriptor_protos.sh
+     phpunit.xml
+     src=src {
+      phpdoc.dist.xml
+      GPBMetadata=GPBMetadata {
+       Google=Google {
+        Protobuf=Protobuf {
+         Any.php
+         Api.php
+         Duration.php
+         FieldMask.php
+         GPBEmpty.php
+         SourceContext.php
+         Struct.php
+         Timestamp.php
+         Type.php
+         Wrappers.php
+         Internal=Internal {
+          Descriptor.php
+         }
+        }
+       }
+      }
+      Google=Google {
+       Protobuf=Protobuf {
+        Any.php
+        Api.php
+        BoolValue.php
+        BytesValue.php
+        Descriptor.php
+        DescriptorPool.php
+        DoubleValue.php
+        Duration.php
+        Enum.php
+        EnumDescriptor.php
+        EnumValue.php
+        EnumValueDescriptor.php
+        Field.php
+        FieldDescriptor.php
+        FieldMask.php
+        Field_Cardinality.php
+        Field_Kind.php
+        FloatValue.php
+        GPBEmpty.php
+        Int32Value.php
+        Int64Value.php
+        ListValue.php
+        Method.php
+        Mixin.php
+        NullValue.php
+        OneofDescriptor.php
+        Option.php
+        SourceContext.php
+        StringValue.php
+        Struct.php
+        Syntax.php
+        Timestamp.php
+        Type.php
+        UInt32Value.php
+        UInt64Value.php
+        Value.php
+        Internal=Internal {
+         CodedInputStream.php
+         CodedOutputStream.php
+         Descriptor.php
+         DescriptorPool.php
+         DescriptorProto.php
+         DescriptorProto_ExtensionRange.php
+         DescriptorProto_ReservedRange.php
+         EnumBuilderContext.php
+         EnumDescriptor.php
+         EnumDescriptorProto.php
+         EnumDescriptorProto_EnumReservedRange.php
+         EnumOptions.php
+         EnumValueDescriptorProto.php
+         EnumValueOptions.php
+         ExtensionRangeOptions.php
+         FieldDescriptor.php
+         FieldDescriptorProto.php
+         FieldDescriptorProto_Label.php
+         FieldDescriptorProto_Type.php
+         FieldOptions.php
+         FieldOptions_CType.php
+         FieldOptions_JSType.php
+         FileDescriptor.php
+         FileDescriptorProto.php
+         FileDescriptorSet.php
+         FileOptions.php
+         FileOptions_OptimizeMode.php
+         GPBDecodeException.php
+         GPBJsonWire.php
+         GPBLabel.php
+         GPBType.php
+         GPBUtil.php
+         GPBWire.php
+         GPBWireType.php
+         GeneratedCodeInfo.php
+         GeneratedCodeInfo_Annotation.php
+         GetPublicDescriptorTrait.php
+         HasPublicDescriptorTrait.php
+         MapEntry.php
+         MapField.php
+         MapFieldIter.php
+         Message.php
+         MessageBuilderContext.php
+         MessageOptions.php
+         MethodDescriptorProto.php
+         MethodOptions.php
+         MethodOptions_IdempotencyLevel.php
+         OneofDescriptor.php
+         OneofDescriptorProto.php
+         OneofField.php
+         OneofOptions.php
+         RawInputStream.php
+         RepeatedField.php
+         RepeatedFieldIter.php
+         ServiceDescriptorProto.php
+         ServiceOptions.php
+         SourceCodeInfo.php
+         SourceCodeInfo_Location.php
+         UninterpretedOption.php
+         UninterpretedOption_NamePart.php
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+  grpc=grpc {
+   grpc=grpc {
+    LICENSE
+    README.md
+    composer.json
+    etc=etc {
+     roots.pem
+    }
+    src=src {
+     lib=lib {
+      AbstractCall.php
+      BaseStub.php
+      BidiStreamingCall.php
+      ClientStreamingCall.php
+      ServerStreamingCall.php
+      UnaryCall.php
+     }
+    }
+   }
+  }
+ }
+}
