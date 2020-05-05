@@ -16,15 +16,25 @@ class Request extends \Google\Protobuf\Internal\Message
     /**
      * Generated from protobuf field <code>string method = 1;</code>
      */
-    private $method = '';
+    protected $method = '';
     /**
      * Generated from protobuf field <code>map<string, string> params = 2;</code>
      */
     private $params;
 
-    public function __construct() {
+    /**
+     * Constructor.
+     *
+     * @param array $data {
+     *     Optional. Data for populating the Message object.
+     *
+     *     @type string $method
+     *     @type array|\Google\Protobuf\Internal\MapField $params
+     * }
+     */
+    public function __construct($data = NULL) {
         \GPBMetadata\Service::initOnce();
-        parent::__construct();
+        parent::__construct($data);
     }
 
     /**
