@@ -2,8 +2,6 @@
 
 php 版的YClient, 用于访问YGO提供的grpc服务
 
-vendor 下依赖的相关包文件是被我删减过的轻量版,请放心使用
-
 ## Installation
 -------
  - Install the gRPC PHP extension
@@ -15,13 +13,19 @@ vendor 下依赖的相关包文件是被我删减过的轻量版,请放心使用
    ```
    使用pecl安装或你擅长的方式安装
 
+其次安装PHP protobuf 扩展（可选, vender下已包含Php版代码）
+
+   ```sh
+   $ [sudo] pecl install protobuf
+   ```
+   使用pecl安装或你擅长的方式安装
 
 TRY IT!
 -------
 
  - Run YGO server
 
-启动一个由YGO创建的服务
+启动一个由YGO创建的RPC服务
 
  - Edit example.php and run it!
 
