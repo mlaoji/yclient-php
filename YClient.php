@@ -31,9 +31,9 @@ Class YClient
             throw new YClientException(self::ERROR_INVALID_CONF);
         }
 
-        $this->host   = $app_conf[$project]["host"];
-        $this->appid  = $app_conf[$project]["appid"];
-        $this->secret = $app_conf[$project]["secret"];
+        $this->host   = YConfig::$app_conf[$project]["host"];
+        $this->appid  = YConfig::$app_conf[$project]["appid"];
+        $this->secret = YConfig::$app_conf[$project]["secret"];
         
         $this->client = new Ygoservice\YGOClient($this->host, [
             'credentials' => Grpc\ChannelCredentials::createInsecure(),
