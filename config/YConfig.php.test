@@ -1,0 +1,26 @@
+<?php
+class YConfig {
+    public static $app_conf = array(
+        "test" => array(
+            'host' => '127.0.0.1:9002',
+            'appid' => 'test',
+            'secret' => 'test',
+        ),
+        "cmn_counter" => array(
+            'host' => '127.0.0.1:9002',
+            'appid' => 'inner',
+            'secret' => '267abd25812c37ea976074cd236e45ba',
+        ),
+        "cmn_passport" => array(
+            'host' => '127.0.0.1:9202',
+            'appid' => 'inner',
+            'secret' => '267abd25812c37ea976074cd236e45ba',
+        ),
+        //兼容旧版
+        "127.0.0.1:9202" => array(
+            'host' => '127.0.0.1:9202',
+            'appid' => 'inner',
+            'secret' => '267abd25812c37ea976074cd236e45ba',
+        ),
+    );
+}

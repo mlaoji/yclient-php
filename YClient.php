@@ -1,6 +1,7 @@
 <?php
 require dirname(__FILE__).'/vendor/autoload.php';
 
+include_once dirname(__FILE__).'/config/YConfig.php';
 include_once dirname(__FILE__).'/lib/Ygoservice/YClient.php';
 include_once dirname(__FILE__).'/lib/Ygoservice/Reply.php';
 include_once dirname(__FILE__).'/lib/Ygoservice/Request.php';
@@ -15,26 +16,36 @@ include_once dirname(__FILE__).'/lib/YLogger.php';
 
 Class YClient
 {
+    private static $instance;
     private $host;
     private $appid;
     private $secret;
     private $client;
 
-    const ERROR_INVALID_RES = "response empty!";
-    const ERROR_INVALID_RQT = "request error!";
+    const ERROR_INVALID_RES  = "response empty!";
+    const ERROR_INVALID_RQT  = "request error!";
+    const ERROR_INVALID_CONF = "config not exist!";
     
-    public function __construct($host, $appid = null, $secret = null) {/*{{{*/
-        $this->host   = $host;
-        $this->appid  = $appid;
-        $this->secret = $secret;
+    public function __construct($project) {/*{{{*/
+        if(!isset(YConfig::$app_conf[$project])) {
+            throw new YClientException(self::ERROR_INVALID_CONF);
+        }
+
+        $this->host   = $app_conf[$project]["host"];
+        $this->appid  = $app_conf[$project]["appid"];
+        $this->secret = $app_conf[$project]["secret"];
         
         $this->client = new Ygoservice\YGOClient($this->host, [
             'credentials' => Grpc\ChannelCredentials::createInsecure(),
                 ]);
     }/*}}}*/
 
-    public static function getInstance($host, $appid = null, $secret = null) {/*{{{*/
-        return new self($host, $appid, $secret);
+    public static function getInstance($project) {/*{{{*/
+        if (!isset(self::$instance[$project])) {
+            self::$instance[$project]= new self($project);
+        }
+
+        return self::$instance[$project];
     }/*}}}*/
 
     public static function setLogFile($logfile) {/*{{{*/
