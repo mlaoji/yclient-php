@@ -4,6 +4,11 @@ yclient-php=$PWD {
  composer.json
  composer.lock
  example.php
+ config=config{
+  YConfig.php.dev
+  YConfig.php.release
+  YConfig.php.test
+  }
  lib=lib {
   YLogger.php
   GPBMetadata=GPBMetadata {
