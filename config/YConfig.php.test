@@ -1,5 +1,11 @@
 <?php
 class YConfig {
+    public static $log_conf = array(
+            'level'    => 0x07, 
+            'split'    => 1,
+            'logfile' => '/home/q/logs/yclient-php/access.log',
+    );
+
     public static $app_conf = array(
         "test" => array(
             'host' => '127.0.0.1:9002',

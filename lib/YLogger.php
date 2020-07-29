@@ -1,27 +1,4 @@
 <?php
-/**
- * @example:
- *
- <?php
- require_once('YLogger.php');
- define('YC_START_TIME', microtime(true) * 1000);
- $GLOBALS['YC_LOG'] = array(
-    'level'         => 0x07,        //access, fatal, warn
-    'logfile'       => '/home/q/logs/yclient-php/access.log', //test.log.wf will be the wf log file
-    'split'         => 1,          //0 not split, 1 split by day, 2 split by hour
-    'others '       => array(
-        'xxx'      => '/home/q/logs/yclient-php/xxx.log',
-        ),
-    );
-
- $str = 'log me';
- Logger::access($str);
- Logger::notice($str);
- Logger::fatal($str);
- Logger::warn($str);
- Logger::debug($str);
-
- **/
 class YLogger
 {
     const LOG_LEVEL_NONE    = 0x00;
@@ -61,20 +38,18 @@ class YLogger
 
     private static $instance = null;
 
-    private function __construct($start_time, $log_config) {/*{{{*/
+    private function __construct() {/*{{{*/
         $this->logid     = self::genLogId();             //日志ID
-        $this->start_time = $start_time;                  //开始时间
-        $this->level      = intval($log_config['level']); //日志级别
-        $this->log_split  = intval($log_config['split']); //日志切分
-        $this->log_file   = $log_config['logfile'];       //日志文件
-        $this->other_log_files = $log_config['others'];   //其他日志文件
+        $this->start_time = defined('YC_START_TIME') ? YC_START_TIME : microtime(true) * 1000; //开始时间
+        $this->level      = isset(YConfig::$log_conf['level']) ? (int)YConfig::$log_conf['level'] : 0x07; //日志级别
+        $this->log_split  = isset(YConfig::$log_conf['split']) ? (int)YConfig::$log_conf['split'] : self::LOG_SPLIT_DAY; //日志切分
+        $this->log_file   = isset(YConfig::$log_conf['logfile']) ? YConfig::$log_conf['logfile'] : dirname(__DIR__) . '/logs/yclient.log'; //日志文件
+        $this->other_log_files = YConfig::$log_conf['others'];   //其他日志文件
     }/*}}}*/
 
     public static function getInstance() {/*{{{*/
         if (!isset(self::$instance)) {
-            $start_time = defined('YC_START_TIME') ? YC_START_TIME : microtime(true) * 1000;
-            $log_config = $GLOBALS['YC_LOG'];
-            self::$instance = new self($start_time, $log_config);
+            self::$instance = new self();
         }
 
         return self::$instance;

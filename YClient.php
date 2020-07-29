@@ -8,12 +8,6 @@ include_once dirname(__FILE__).'/lib/Ygoservice/Request.php';
 include_once dirname(__FILE__).'/lib/GPBMetadata/Service.php';
 include_once dirname(__FILE__).'/lib/YLogger.php';
 
-!isset($GLOBALS['YC_LOG']) && $GLOBALS['YC_LOG'] = array(
-    'level'    => YLogger::LOG_LEVEL_WARN, //日志级别为警告级别，同时业务日志（调试级别）将关闭
-    'split'    => YLogger::LOG_SPLIT_DAY,
-    'logfile' => dirname(__FILE__) . '/logs/yclient.log',
-);
-
 Class YClient
 {
     private static $instance;
@@ -34,7 +28,7 @@ Class YClient
         $this->host   = YConfig::$app_conf[$project]["host"];
         $this->appid  = YConfig::$app_conf[$project]["appid"];
         $this->secret = YConfig::$app_conf[$project]["secret"];
-        
+       
         $this->client = new Ygoservice\YGOClient($this->host, [
             'credentials' => Grpc\ChannelCredentials::createInsecure(),
                 ]);
@@ -46,10 +40,6 @@ Class YClient
         }
 
         return self::$instance[$project];
-    }/*}}}*/
-
-    public static function setLogFile($logfile) {/*{{{*/
-        $GLOBALS["YC_LOG"]["logfile"] = $logfile;
     }/*}}}*/
 
     public function request($method, $params = array()) {/*{{{*/

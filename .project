@@ -5,6 +5,7 @@ yclient-php=$PWD {
  composer.lock
  example.php
  config=config{
+  YConfig.php
   YConfig.php.dev
   YConfig.php.release
   YConfig.php.test
