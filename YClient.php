@@ -59,7 +59,7 @@ Class YClient
 
         $params["method"] = $method;
 
-        list($reply, $status) = $this->client->Call($request, ["appid" => [$this->appid], "secret" => [$this->secret], "guid" => [$params["guid"]])->wait();
+        list($reply, $status) = $this->client->Call($request, ["appid" => [$this->appid], "secret" => [$this->secret], "guid" => [$params["guid"]]])->wait();
         if("NULL" == (gettype($reply))) {
             YLogger::warn("request error", 0, $params);
             throw new YClientException(self::ERROR_INVALID_RQT);
