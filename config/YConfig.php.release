@@ -22,6 +22,11 @@ class YConfig {
             'appid' => 'inner',
             'secret' => '267abd25812c37ea976074cd236e45ba',
         ),
+        "cmn_msg" => array(
+            'host' => '127.0.0.1:9402',
+            'appid' => 'inner',
+            'secret' => '267abd25812c37ea976074cd236e45ba',
+        ),
         //兼容旧版
         "127.0.0.1:9202" => array(
             'host' => '127.0.0.1:9202',
