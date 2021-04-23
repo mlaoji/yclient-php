@@ -49,13 +49,17 @@ Class YClient
             }
         }
 
+        $params["appid"]  = $this->appid;
+        $params["secret"] = $this->secret;
+        $params["guid"] = $this->_getGuid();
+
         $request = new Ygoservice\Request();
         $request->setMethod($method);
         $request->setParams($params);
 
         $params["method"] = $method;
 
-        list($reply, $status) = $this->client->Call($request, ["appid" => [$this->appid], "secret" => [$this->secret], "guid" => [$this->_getGuid()])->wait();
+        list($reply, $status) = $this->client->Call($request, ["appid" => [$this->appid], "secret" => [$this->secret], "guid" => [$params["guid"]])->wait();
         if("NULL" == (gettype($reply))) {
             YLogger::warn("request error", 0, $params);
             throw new YClientException(self::ERROR_INVALID_RQT);
